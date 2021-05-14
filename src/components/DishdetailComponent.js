@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody,
     CardTitle, Breadcrumb, BreadcrumbItem, Modal, ModalHeader, ModalBody, Button, Label, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, LocalForm, Error, Errors } from 'react-redux-form';
+import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
 import { FadeTransform, Fade, Stagger } from 'react-animation-components';

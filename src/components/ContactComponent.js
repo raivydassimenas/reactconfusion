@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, BreadcrumbItem,
     Button, Row, Col, Label } from 'reactstrap';
-import { Control, Form, Errors, actions } from 'react-redux-form';
+import { Control, Form, Errors } from 'react-redux-form';
+import { baseUrl } from '../shared/baseUrl';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 const isNumber = (val) => !isNaN(Number(val));
 const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+
 
 class Contact extends Component {
 
@@ -18,11 +20,14 @@ class Contact extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
-        this.props.resetFeedbackForm();
-        // event.preventDefault();
+    handleSubmit({ firstname, lastname, telnum, email, agree, contactType, message }) {
+        
+        this.props.postFeedback(firstname, lastname, telnum, email, agree, contactType, message);
+
+        fetch(baseUrl + "feedback")
+          .then(response => response.json())
+          .then(data => alert(data[data.length-1]))
+          .catch(error => console.log(error));
     }
 
     render() {

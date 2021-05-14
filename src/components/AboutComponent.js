@@ -1,13 +1,16 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Stagger, Fade } from 'react-animation-components';
+import { baseUrl } from '../shared/baseUrl';
+import { Loading } from './LoadingComponent';
 
 
 function RenderLeader({ leader }) {
     return(
         <Media>
             <Media left className="m-5">
-                <Media object src="/assets/images/alberto.png" alt="Alberto" />
+                <Media object src={baseUrl + leader.image} alt={leader.name} />
             </Media>
             <Media body right>
                 <Media heading>
@@ -22,12 +25,35 @@ function RenderLeader({ leader }) {
 
 function About(props) {
 
-    const leaders = props.leaders.map((leader) => {
+    const leaders = props.leaders.leaders.map((leader) => {
         return (
+            <Fade>
             <RenderLeader leader={leader} />
+            </Fade>
         );
     });
 
+    if (props.leaders.isLoading) {
+        return(
+            <div className="container">
+                <div className="row">            
+                    <Loading />
+                </div>
+            </div>
+        );
+    }
+    else if (props.leaders.errMess) {
+        return(
+            <div className="container">
+                <div className="row"> 
+                    <div className="col-12">
+                        <h4>{props.leaders.errMess}</h4>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+    else
     return(
         <div className="container">
             <div className="row">
@@ -84,7 +110,9 @@ function About(props) {
                 </div>
                 <div className="col-12">
                     <Media list>
+                        <Stagger in>
                         {leaders}
+                        </Stagger>
                     </Media>
                 </div>
             </div>
