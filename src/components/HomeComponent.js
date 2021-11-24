@@ -29,7 +29,7 @@ function RenderCard({item, isLoading, errMess}) {
                     <CardBody>
                     <CardTitle>{item.name}</CardTitle>
                     {item.designation ? <CardSubtitle>{item.designation}</CardSubtitle> : null }
-                    <CardText>{item.description}</CardText>
+                    <CardText>{item.description} my world</CardText>
                     </CardBody>
                 </Card>
             </FadeTransform>
